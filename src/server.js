@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 
 	//Tem que ter esse return next para poder prosseguir com o fluxo da informacao para os proximos metodos .use()
 	return next();
-});
+}); 
 
 // GET, POST, PUT, DELETE
 
