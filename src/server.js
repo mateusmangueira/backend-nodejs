@@ -18,7 +18,7 @@ const server = http.Server(app);
 const io = socketio(server);
 
 //Iniciando DB com o mongoDB
-mongoose.connect('colocar url do mongoDB', {
+mongoose.connect('mongodb+srv://mateusmangueira:brasileiros199601@omnistackweek-f4k0y.mongodb.net/test?retryWrites=true&w=majority', {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
@@ -26,12 +26,14 @@ mongoose.connect('colocar url do mongoDB', {
 //Serve para guardar os IDs de todos usuarios conectados, nao eh melhor jeito de fazer...
 const connectedUsers = {};
 
+//Iniciando a conexao com os sockets
 io.on('connection', socket => {
 	const { user_id } = socket.handshake.query;
 
 	connectedUsers[user_id] = socket.id;
 });
 
+//Usando requesicoes io para os usuarios conectados
 app.use((req, res, next) => {
 	req.io = io;
 	req.connectedUsers = connectedUsers;
