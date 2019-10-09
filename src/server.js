@@ -1,5 +1,4 @@
 //Imports das bibliotecas utilizadas no servidor
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,6 +6,7 @@ const path = require('path');
 const routes = require('./routes');
 const socketio = require('socket.io');
 const http = require('http');
+const requireDir = require('require-dir');
 
 //Iniciando app
 const app = express();
@@ -22,6 +22,10 @@ mongoose.connect('mongodb+srv://mateusmangueira:brasileiros199601@omnistackweek-
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
+
+//Biblioteca que importa automaticamente tudo que falta ser importado do models(evitar grande numero de imports futuros, ja faz automaticamente).
+requireDir('./src/models');
+
 
 //Serve para guardar os IDs de todos usuarios conectados, nao eh melhor jeito de fazer...
 const connectedUsers = {};
