@@ -1,5 +1,6 @@
 //Imports da classe Product
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 //Construtor do Schema para o DB
 const ProductSchema = new mongoose.Schema({
@@ -25,6 +26,8 @@ const ProductSchema = new mongoose.Schema({
     default: Date.now,
   }
 });
+
+ProductSchema.plugin(mongoosePaginate);
 
 //Passa para o DB que existe um Model chamado ProductSchema
 mongoose.model('Product', ProductSchema);

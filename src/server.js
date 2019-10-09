@@ -11,6 +11,18 @@ const http = require('http');
 //Iniciando app
 const app = express();
 
+//req.query = Acessar query params, serve para filtrar info do BD.
+//req.params = Acessar route params, serve para editar ou deletar usando um parametro
+//req.body = Acessar corpo da requisicao para criacao ou edicao.
+
+app.use(cors());
+
+//Habilita que a aplicacao envie requisicoes no formato JSON
+app.use(express.json());
+app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
+app.use(routes);
+
+
 //Serve para enviar requisicoes http
 const server = http.Server(app);
 
@@ -41,20 +53,6 @@ app.use((req, res, next) => {
 	//Tem que ter esse return next para poder prosseguir com o fluxo da informacao para os proximos metodos .use()
 	return next();
 });
-
-
-
-//req.query = Acessar query params, serve para filtrar info do BD.
-//req.params = Acessar route params, serve para editar ou deletar usando um parametro
-//req.body = Acessar corpo da requisicao para criacao ou edicao.
-
-
-app.use(cors());
-
-//Habilita que a aplicacao envie requisicoes no formato JSON
-app.use(express.json());
-app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
-app.use(routes);
 
 //Servidor ouve tanto reqs IO quanto reqs HTTP
 server.listen(3333);

@@ -7,7 +7,10 @@ module.exports = {
   //Metodo para listar todos produtos, se quiser passa parametros para funcao .find()
   async index(req, res) {
     //Cria um produto que esta no DB do mongoose
-    const products = await Product.find();
+    //paginate serve para especificar quantos produtos por pagina vao ser retornados do mongoose
+    const { page = 1 } = req.query;
+    const products = await Product.paginate({}, { page, limit: 10 },
+    );
     //Retorna um json para ser consumido pelo FrontEnd
     return res.json(products)
   },
@@ -23,7 +26,7 @@ module.exports = {
   async update(req, res) {
     //Procura pelo Id e ja atualiza o produto com o .body no segundo parametro
     // new: true serve para retornar o produto dps de atualizar.
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
     return res.json(product);
   },
 
