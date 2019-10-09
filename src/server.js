@@ -6,7 +6,7 @@ const path = require('path');
 const routes = require('./routes');
 const socketio = require('socket.io');
 const http = require('http');
-const requireDir = require('require-dir');
+
 
 //Iniciando app
 const app = express();
@@ -22,10 +22,6 @@ mongoose.connect('mongodb+srv://mateusmangueira:brasileiros199601@omnistackweek-
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
-
-//Biblioteca que importa automaticamente tudo que falta ser importado do models(evitar grande numero de imports futuros, ja faz automaticamente).
-requireDir('./src/models');
-
 
 //Serve para guardar os IDs de todos usuarios conectados, nao eh melhor jeito de fazer...
 const connectedUsers = {};
@@ -52,9 +48,10 @@ app.use((req, res, next) => {
 //req.params = Acessar route params, serve para editar ou deletar usando um parametro
 //req.body = Acessar corpo da requisicao para criacao ou edicao.
 
-//Rotas
 
 app.use(cors());
+
+//Habilita que a aplicacao envie requisicoes no formato JSON
 app.use(express.json());
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(routes);

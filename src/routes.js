@@ -1,10 +1,8 @@
 
 //Imports de bibliotecas usadas na aplicacao
 const express = require('express');
-
 //Router
 const routes = express.Router();
-
 //Imports dos controllers usados, modificar de acordo com os seus controllers.
 const ProductController = require('./controllers/ProductController');
 
@@ -22,6 +20,10 @@ const RejectionController = require('./controllers/RejectionController');
 //As rotas pode ser POST, GET, PUT ou DELETE
 //Os metodos do controller pode ser Store, Index, show, save... 
 routes.get('/products', ProductController.index);
+routes.get('/products/:id', ProductController.show);
+routes.post('/products', ProductController.store);
+routes.put('/products/:id', ProductController.update);
+routes.delete('/products/:id', ProductController.delete);
 
 /*
 routes.get('/', 'controller e metodo que ira chamar');
