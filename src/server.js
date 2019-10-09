@@ -46,11 +46,13 @@ app.use((req, res, next) => {
 	return next();
 });
 
-// GET, POST, PUT, DELETE
+
 
 //req.query = Acessar query params, serve para filtrar info do BD.
 //req.params = Acessar route params, serve para editar ou deletar usando um parametro
 //req.body = Acessar corpo da requisicao para criacao ou edicao.
+
+//Rotas
 
 app.use(cors());
 app.use(express.json());
